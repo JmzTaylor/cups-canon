@@ -55,6 +55,11 @@ RUN /usr/sbin/cupsd \
 # copy /etc/cups for skeleton usage
 RUN cp -rp /etc/cups /etc/cups-skel
 
+# install canon drivers
+COPY cnijfilter2_6.30-1_amd64.deb /
+RUN dpkg -i /cnijfilter2_6.30-1_amd64.deb
+RUN rm cnijfilter2_6.30-1_amd64.deb
+
 # entrypoint
 ADD docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT [ "docker-entrypoint.sh" ]
