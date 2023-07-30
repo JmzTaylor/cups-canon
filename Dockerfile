@@ -58,7 +58,15 @@ RUN cp -rp /etc/cups /etc/cups-skel
 # install canon drivers
 COPY cnijfilter2_6.30-1_amd64.deb /
 RUN dpkg -i /cnijfilter2_6.30-1_amd64.deb
-RUN rm cnijfilter2_6.30-1_amd64.deb
+RUN rm /cnijfilter2_6.30-1_amd64.deb
+
+COPY cnijfilter-common_3.70-1_amd64.deb /
+RUN dpkg -i /cnijfilter-common_3.70-1_amd64.deb
+RUN rm /cnijfilter-common_3.70-1_amd64.deb
+
+COPY cnijfilter-ip100series_3.70-1_amd64.deb /
+RUN dpkg -i /cnijfilter-ip100series_3.70-1_amd64.deb
+RUN rm /cnijfilter-ip100series_3.70-1_amd64.deb
 
 # entrypoint
 ADD docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
