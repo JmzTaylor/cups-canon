@@ -33,6 +33,11 @@ RUN apt-get update \
   hpijs-ppds \
   hp-ppd \
   hplip \
+  libpopt0 \
+  libatk1.0-0 \
+  libpango1.0-0 \
+  libxcursor1 \
+  libgtk2.0-0 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
@@ -54,6 +59,19 @@ RUN /usr/sbin/cupsd \
 
 # copy /etc/cups for skeleton usage
 RUN cp -rp /etc/cups /etc/cups-skel
+
+# install deps
+COPY libjpeg8_8d1-2_amd64.deb /
+RUN dpkg --ignore-depends=multiarch-support -i /libjpeg8_8d1-2_amd64.deb
+RUN rm /libjpeg8_8d1-2_amd64.deb
+
+COPY libtiff4_3.9.7-2ubuntu1_amd64.deb /
+RUN dpkg --ignore-depends=multiarch-support -i /libtiff4_3.9.7-2ubuntu1_amd64.deb
+RUN rm /libtiff4_3.9.7-2ubuntu1_amd64.deb
+
+COPY libpng12-0_1.2.54-1ubuntu1.1_amd64.deb /
+RUN dpkg -i /libpng12-0_1.2.54-1ubuntu1.1_amd64.deb
+RUN rm /libpng12-0_1.2.54-1ubuntu1.1_amd64.deb
 
 # install canon drivers
 COPY cnijfilter2_6.30-1_amd64.deb /
